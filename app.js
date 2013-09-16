@@ -1,5 +1,5 @@
 
-var app = require('express').createServer(process.env.PORT || 3000).listen();
+var app = require('express').createServer().listen(process.env.PORT || 3000);
 var	io  = require('socket.io').listen(app);
 
 // Nombre de los usuarios conectados.
