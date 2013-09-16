@@ -12,8 +12,8 @@ io.sockets.on('connection', function (socket) {
               
   socket.on('nickname', function (data) {
   	//nicknames.push(data);
-  	socket.nickname=data;
-    console.log('The server received the following nickname: ' + data);
+  	//socket.nickname=data;
+    //console.log('The server received the following nickname: ' + data);
   });
               
   socket.on('disconnect', function(){
