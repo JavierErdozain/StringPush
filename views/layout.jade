@@ -1,0 +1,44 @@
+doctype 5
+html
+  block head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/bootstrap/css/bootstrap.min.css')
+    
+    link(rel='stylesheet', href='http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css')
+                                 
+    style.
+      body {
+        padding-top: 55px;
+      }
+      .scrollable {
+                height: 200px;
+                overflow: auto;
+                }
+  body
+    
+    div(class="navbar navbar-inverse navbar-fixed-top")
+      div(class="navbar-inner")
+        div(class="container-fluid")
+          a(class="brand" href="#") Tablero de Scrum
+          div(class="nav-collapse collapse")
+            ul(class="nav")
+              li(class="active")
+                a(href="#") Home
+              li 
+                a(href="#about") About
+              li
+                a(href="#contact") Contact
+    
+    
+    div(class="container-fluid")
+      div(class="row-fluid")
+        div(class="span9")
+          block content
+        div(class="span3")
+          block chat
+           
+    footer
+      p © Company 2013
+
+
+

@@ -1,0 +1,31 @@
+extends layout
+
+block append head
+  script(src="http://code.jquery.com/jquery-1.9.1.js")
+  script(src="http://code.jquery.com/ui/1.10.3/jquery-ui.js")
+  script(src="/socket.io/socket.io.js")
+  script(src="javascripts/Chat.js")
+  script(src="javascripts/Tablon.js")
+  
+block content
+  style.
+    .draggable {width: 50px; height: 50px; padding: 0.5em;}
+  div(id="TablonScrum", style="float:left;border:1;border-width:1;border-style:solid;width:600px;height:600px")
+    div(id="post1", class="ui-widget-content draggable")
+      p Posit 1
+  div
+    form(id="formnewpost")
+      input(type="text", id="txtnewpost")
+      input(type="submit", value="Nuevo posit")
+        
+block chat
+  <h2>Chat</h2>
+  div(class="content")
+    section(id="mensajes" class="scrollable")
+    form(id="send-message", class="well form-search")
+      input(id="message", class="input-medium search-query", type="text")
+      button(type="submit",class="btn") Enviar
+
+  
+
+
