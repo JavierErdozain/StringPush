@@ -1,8 +1,50 @@
 body {
   padding: 50px;
+  padding-top: 55px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
+}
+
+.scrollable {
+  height: 200px;
+  overflow: auto;
+}
+
+
+#TablonScrum{
+positio:relative;
+border:1;border-width:1;border-style:solid;width:600px;height:600px;
+}
+
+div .posit.draggable{
+  border:0;
+  position:absolute;  
+  display: block;
+  width: 100px; height: 100px; padding: 0em;
+  background-color : transparent;
+}
+
+div .posit.draggable img{
+  position:absolute;
+  max-width:100%;
+  height:auto;  
+}
+
+.positAmarillo{
+    background-image: url(../images/post-it.png)";
+}
+
+.ui-resizable-nw {
+    display: block;
+    width: 30px;
+    height: 30px;
+    border: 1px solid #666;
+    border-width: 1px 0 0 1px;
+    position: absolute; /* changed from relative */
+    top: -10px; /* changed from -166px */
+    left: -10px;
+    cursor: nw-resize;
 }

@@ -36,8 +36,10 @@ var server = http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
 
-var	io  = socket.listen(server);
 
+var numposit=1;
+
+var	io  = socket.listen(server);
 io.sockets.on('connection', function (socket) {
               
               socket.on('disconnect', function(){
@@ -57,8 +59,9 @@ io.sockets.on('connection', function (socket) {
                         });
               
               socket.on('creadonuevopost', function(data){
-                        console.log(data);
-                        socket.broadcast.emit('nuevopost',data);
-                        
+                        numposit++;
+                        data.id=numposit;
+                        io.sockets.emit('nuevopost',data);
                         });
+                                                    
 });

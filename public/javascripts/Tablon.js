@@ -3,24 +3,26 @@ jQuery(function ($) {
        
        $(".draggable").draggable();
        
-       var numpost=1;
        var TablonScrum = $("#TablonScrum");
        var formnewpost = $("#formnewpost");
        var txtnewpost = $("#txtnewpost");
+       
        formnewpost.submit(function (event){
                           event.preventDefault();
-                          numpost++;
-                          var str = "<div id='post"+ numpost +"' class='ui-widget-content draggable'><p>"+ txtnewpost.val() +"</p></div>";
-                          var $nobj = $(str)
-                          TablonScrum.append($nobj);
-                          $nobj.draggable().resizable();
-                          socket.emit("creadonuevopost", {html:str});
-                          })
-       socket.on('nuevopost',function(data){
-                 $obj = $(data.html);
-                 TablonScrum.append($obj);
-                 $obj.draggable().resizable();
-                 
+                          var pos = new posit(null);
+                          pos.contenido = txtnewpost.val();
+                          pos.color = "amarillo";
+                          socket.emit("creadonuevopost", pos);
+                          });
+        
+       socket.on('nuevopost', function(data){
+                 var pos = new posit(data);
+                 pos.posleft=0;
+                 pos.postop=0;
+                 var $obj = pos.render();
+                 $obj.appendTo("#TablonScrum");
+                 //TablonScrum.append($obj);
+                                 
                  });
        
        
@@ -28,25 +30,31 @@ jQuery(function ($) {
        socket.on('postMovido', function(data){
                  
                  $("div[id="+ data.post +"]").animate({
-                                                      top: data.top,
-                                                      left: data.left
-                                                      }, 2000 );
+                    top: $("div[id="+ data.post +"]").position().top + data.top - $("div[id="+ data.post +"]").offset().offsetWidth,
+                    left: $("div[id="+ data.post +"]").position().left + data.left - $("div[id="+ data.post +"]").offset().offsetHeight
+                    }, 2000 );
                  
                  });
        
        
        $("#TablonScrum").droppable({
-                                   accept: ".draggable",
-                                   drop: function(ev, ui) {
-                                   var obj = $("#"+ ui.draggable[0].id);
-                                   var posi = obj.position();
+         accept: ".draggable",
+         drop: function(ev, ui) {
+            var posit = ui.draggable.data("posit");            
+            var posifin = ui.draggable.position();
                                    
-                                   socket.emit('moverPost',
-                                               {post: ui.draggable[0].id,
-                                               left:posi.left- $(this).offset().left,
-                                               top:posi.top - $(this).offset().top});
+            socket.emit('moverPost',
+              {
+               post: ui.draggable[0].id,
+               left: posifin.left - posit.posleft,
+               top:  posifin.top  - posit.postop
+              });
+            
+            ui.draggable.data("posit").posleft = posifin.left;
+            ui.draggable.data("posit").postop  = posifin.top;
                                    
-                                   }
-                                   });
-       
+         }
+                                   
        });
+       
+});
